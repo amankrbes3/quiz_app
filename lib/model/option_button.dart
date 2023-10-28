@@ -20,7 +20,12 @@ class OptionButton extends StatelessWidget{
             borderRadius: BorderRadius.circular(30),
           ),
         ),
-        child: Text(answersText)
+        child: Text(
+            answersText,
+          style: const TextStyle(
+            fontSize: 20,
+          ),
+        ),
     );
   }
 }
