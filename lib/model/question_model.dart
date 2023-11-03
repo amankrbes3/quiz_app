@@ -5,9 +5,9 @@ class Question{
   final String questionText;
   final List<String> answerOptions;
 
-  // List<String> getShuffledOptions(){
-  //   final tempList = List.of(answerOptions);
-  //   tempList.shuffle();
-  //   return tempList;
-  // }
+  List<String> getShuffledOptions(){
+    final tempList = List.of(answerOptions);
+    tempList.shuffle();
+    return tempList;
+  }
 }
