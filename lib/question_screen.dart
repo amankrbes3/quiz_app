@@ -23,7 +23,6 @@ class _QuestionScreenState extends State<QuestionScreen>{
     });
   }
   void _prevQuestion(){
-    widget.onSelect('',currentQuestionIndex);
     setState(() {
       if(currentQuestionIndex>0) currentQuestionIndex--;
     });
