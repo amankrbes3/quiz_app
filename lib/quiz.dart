@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/questions.dart';
@@ -16,24 +15,24 @@ class Quiz extends StatefulWidget{
 }
 
 class _QuizState extends State<Quiz>{
-  List<String> selectedAnswer=[];
+  List<String> selectedAnswer=List.filled(questionList.length,'',growable: false);
   var activeScreen = 'start-screen';
   void switchScreen(){
     setState(() {
       activeScreen = 'question-screen';
     });
   }
-  void chooseAnswer(String answer){
-    selectedAnswer.add(answer);
+  void chooseAnswer(String answer,int index){
+    selectedAnswer[index]=answer;
     setState(() {
-      if(selectedAnswer.length == questionList.length){
+      if(index == questionList.length-1){
         activeScreen = 'result-screen';
       }
     });
   }
   void restartQuiz(){
     setState(() {
-      selectedAnswer = [];
+      selectedAnswer = List.filled(questionList.length,'',growable: false);
       activeScreen = 'question-screen';
     });
   }

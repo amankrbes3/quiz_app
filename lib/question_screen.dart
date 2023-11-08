@@ -5,7 +5,7 @@ import 'package:quiz_app/model/question_model.dart';
 
 class QuestionScreen extends StatefulWidget{
   const QuestionScreen({super.key,required this.onSelect});
-  final void Function(String answer) onSelect;
+  final void Function(String answer,int index) onSelect;
   @override
   State<QuestionScreen> createState(){
     return _QuestionScreenState();
@@ -14,8 +14,8 @@ class QuestionScreen extends StatefulWidget{
 
 class _QuestionScreenState extends State<QuestionScreen>{
   var currentQuestionIndex=0;
-  void changeQuestion(String answer){
-    widget.onSelect(answer);
+  void answerQuestion(String answer){
+    widget.onSelect(answer,currentQuestionIndex);
     setState(() {
       if(currentQuestionIndex < questionList.length-1){
         currentQuestionIndex++;
@@ -23,12 +23,13 @@ class _QuestionScreenState extends State<QuestionScreen>{
     });
   }
   void _prevQuestion(){
+    widget.onSelect('',currentQuestionIndex);
     setState(() {
       if(currentQuestionIndex>0) currentQuestionIndex--;
     });
   }
   void _nextQuestion(){
-    widget.onSelect('Not answered');
+    widget.onSelect('Not answered',currentQuestionIndex);
     setState(() {
       if(currentQuestionIndex< questionList.length-1) currentQuestionIndex++;
     });
@@ -44,6 +45,16 @@ class _QuestionScreenState extends State<QuestionScreen>{
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
+              '${currentQuestionIndex+1}/${questionList.length}',
+              style: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 20,),
+            Text(
               currentQuestion.questionText,
               style: const TextStyle(
                 color: Colors.white,
@@ -54,7 +65,7 @@ class _QuestionScreenState extends State<QuestionScreen>{
             const SizedBox(height: 40,),
             ...currentQuestion.getShuffledOptions().map((item){
               return OptionButton(
-                onTap:(){changeQuestion(item);},
+                onTap:(){answerQuestion(item);},
                 answersText: item,);
             }),
             const SizedBox(height: 40,),
